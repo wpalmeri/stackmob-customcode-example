@@ -46,8 +46,8 @@ public class TwilioSMS implements CustomCodeMethod {
 
   //Create your Twilio Acct at twilio.com and enter 
   //Your accountsid and accesstoken below.
-  static String accountsid = "XXXXXXXXXXXXXXX";
-  static String accesstoken = "XXXXXXXXXXXXXXX";
+  static String accountsid = "ACda54cd4d640564dc517b7001bb8934a8";
+  static String accesstoken = "7435b396dbf4ac9d01d650e55d4fa701";
     
   @Override
   public String getMethodName() {
@@ -63,16 +63,11 @@ public class TwilioSMS implements CustomCodeMethod {
   public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
 	  
 	  LoggerService logger = serviceProvider.getLoggerService(TwilioSMS.class);
-	  
-      // You can pass to,from and body parameters from your client
-	  //String to = request.getParams().get("to"); 
-      //String from = request.getParams().get("from"); 
-      //String body = request.getParams().get("body"); 
       
       // The TO phonenumber should be YOUR cel phone
       // The FROM phonenumber should be one create in 
       // the twilio dashboard at twilio.com
-      String body = "To=4155551212&From=4083331234&Body=hello";
+      String body = "To=9253309367&From=9259488778&Body=hello";
 
       int responseCode = 0;
       String responseBody = "";
@@ -96,30 +91,27 @@ public class TwilioSMS implements CustomCodeMethod {
       
       try {  
           HttpService http = serviceProvider.getHttpService();
-          try {
-              PostRequest req = new PostRequest(url,set,body);
-              try {
-                  try {
-                      HttpResponse resp = http.post(req);
-                      responseCode = resp.getCode();
-                      responseBody = resp.getBody();
+          
+          PostRequest req = new PostRequest(url,set,body);
+             
+          HttpResponse resp = http.post(req);
+          responseCode = resp.getCode();
+          responseBody = resp.getBody();
                   
-                  } catch(TimeoutException e) {
-                	  logger.error(e.getMessage(), e);
-                      responseCode = -1;
-                      responseBody = e.getMessage();
-                  }
-              } catch(AccessDeniedException e) {
-            	  logger.error(e.getMessage(), e);
-                  responseCode = -1;
-                  responseBody = e.getMessage();
-              }
+      } catch(TimeoutException e) {
+          logger.error(e.getMessage(), e);
+          responseCode = -1;
+          responseBody = e.getMessage();
+                 
+      } catch(AccessDeniedException e) {
+          logger.error(e.getMessage(), e);
+          responseCode = -1;
+          responseBody = e.getMessage();
               
-          } catch(MalformedURLException e) {
-        	  logger.error(e.getMessage(), e);
-              responseCode = -1;
-              responseBody = e.getMessage();
-          }
+      } catch(MalformedURLException e) {
+          logger.error(e.getMessage(), e);
+          responseCode = -1;
+          responseBody = e.getMessage();
            
       } catch(ServiceNotActivatedException e) {
     	  logger.error(e.getMessage(), e);
@@ -128,10 +120,9 @@ public class TwilioSMS implements CustomCodeMethod {
       }
       
       Map<String, Object> map = new HashMap<String, Object>();
-      map.put("response_code", responseCode);
       map.put("response_body", responseBody);
      
-    return new ResponseToProcess(HttpURLConnection.HTTP_OK, map);
+    return new ResponseToProcess(responseCode, map);
   }
 
 }
