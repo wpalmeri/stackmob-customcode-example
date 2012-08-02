@@ -73,7 +73,6 @@ public class TwilioSMS implements CustomCodeMethod {
       //  text message you want to send
       String message = request.getParams().get("message");
       
-      
       if (toPhoneNumber == null || toPhoneNumber.equals("")) {
           logger.error("Missing to phone number");
       }
@@ -81,7 +80,6 @@ public class TwilioSMS implements CustomCodeMethod {
       if (message == null || message.equals("")) {
           logger.error("Missing message");
       }
-      
       
       String body = "To=" + toPhoneNumber + "&From=" + fromPhoneNumber + "&Body=" + message;
 
