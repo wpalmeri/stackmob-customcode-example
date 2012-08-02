@@ -34,7 +34,7 @@ import com.stackmob.sdkapi.http.Header;
 import com.stackmob.sdkapi.LoggerService;
 
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,18 +56,34 @@ public class TwilioSMS implements CustomCodeMethod {
     
   @Override
   public List<String> getParams() {
-    return new ArrayList<String>();
-  }
+    return Arrays.asList("tophonenumber","message");
+  } 
 
   @Override
   public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
 	  
 	  LoggerService logger = serviceProvider.getLoggerService(TwilioSMS.class);
       
-      // The TO phonenumber should be YOUR cel phone
-      // The FROM phonenumber should be one create in 
-      // the twilio dashboard at twilio.com
-      String body = "To=4152221212&From=9253334545&Body=hello";
+      // TO phonenumber should be YOUR cel phone
+      String toPhoneNumber = request.getParams().get("tophonenumber");
+      
+      //  FROM phonenumber should be one create in the twilio dashboard at twilio.com
+      String fromPhoneNumber = "YOUR_TWILIO_NUMBER";
+      
+      //  text message you want to send
+      String message = request.getParams().get("message");
+      
+      
+      if (toPhoneNumber == null || toPhoneNumber.equals("")) {
+          logger.error("Missing to phone number");
+      }
+      
+      if (message == null || message.equals("")) {
+          logger.error("Missing message");
+      }
+      
+      
+      String body = "To=" + toPhoneNumber + "&From=" + fromPhoneNumber + "&Body=" + message;
 
       int responseCode = 0;
       String responseBody = "";
