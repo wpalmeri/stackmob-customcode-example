@@ -2,7 +2,7 @@
 
 This example project is a simple Hello World.  This adds a server-side method called "hello_world" which can be called from your client iOS, Android, Java Client or JS SDKs:
 
-    http://api.mob1.stackmob.com/hello_world
+    http://api.stackmob.com/hello_world
     
 Custom code allows you to even define the returned JSON.  In this case, our simple Hello World example will return:
 
