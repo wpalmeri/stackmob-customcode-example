@@ -29,6 +29,7 @@ public class EntryPointExtender extends JarEntryObject {
     List<CustomCodeMethod> list = new ArrayList<CustomCodeMethod>();
     list.add(new HelloWorld());
     list.add(new TwilioSMS());
+    list.add(new SendGrid());
     return list;
   }
 
