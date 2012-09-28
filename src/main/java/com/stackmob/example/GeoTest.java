@@ -44,9 +44,9 @@ public class GeoTest implements CustomCodeMethod {
 try {
     SMNear near = new SMNear( 
          "location", 
-         new SMDouble(0.0), // latitude 
-         new SMDouble(0.0), // longitude 
-         new SMDouble(1.0) // radius, can be null 
+         new SMDouble(25.9203), // latitude 
+         new SMDouble(-81.7283), // longitude 
+         new SMDouble(0.2523) // radius, can be null 
 ); 
 List<SMCondition> query = new ArrayList<SMCondition>(); 
 query.add(near); 
