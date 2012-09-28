@@ -42,15 +42,15 @@ public class GeoTest implements CustomCodeMethod {
   @Override
   public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
     SMNear near = new SMNear( 
-         "geopoint", 
+         "location", 
          new SMDouble(0.0), // latitude 
          new SMDouble(0.0), // longitude 
          new SMDouble(1.0) // radius, can be null 
 ); 
 List<SMCondition> query = new ArrayList<SMCondition>(); 
 query.add(near); 
-List<SMObject> testResults = ds.readObjects("tag_locations", query); 
-logger.debug("testResults: " + testResults); 
+List<SMObject> testResults = serviceProvider.getDataService().readObjects("geopoint", query); 
+    
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("results", testResults);
     return new ResponseToProcess(HttpURLConnection.HTTP_OK, map);
