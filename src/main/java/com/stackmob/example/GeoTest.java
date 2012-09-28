@@ -19,7 +19,7 @@ package com.stackmob.example;
 import com.stackmob.core.customcode.CustomCodeMethod;
 import com.stackmob.core.rest.ProcessedAPIRequest;
 import com.stackmob.core.rest.ResponseToProcess;
-import com.stackmob.sdkapi.SDKServiceProvider;
+import com.stackmob.sdkapi.*;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -49,8 +49,8 @@ public class GeoTest implements CustomCodeMethod {
 ); 
 List<SMCondition> query = new ArrayList<SMCondition>(); 
 query.add(near); 
-List<SMObject> testResults = ds.readObjects("tag_locations", query1); 
-logger.debug("testResults: " + testResults1); 
+List<SMObject> testResults = ds.readObjects("tag_locations", query); 
+logger.debug("testResults: " + testResults); 
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("results", testResults);
     return new ResponseToProcess(HttpURLConnection.HTTP_OK, map);
