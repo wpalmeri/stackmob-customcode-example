@@ -41,6 +41,7 @@ public class GeoTest implements CustomCodeMethod {
 
   @Override
   public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
+try {
     SMNear near = new SMNear( 
          "location", 
          new SMDouble(0.0), // latitude 
@@ -54,6 +55,9 @@ List<SMObject> testResults = serviceProvider.getDataService().readObjects("geopo
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("results", testResults);
     return new ResponseToProcess(HttpURLConnection.HTTP_OK, map);
+} catch (Exception e) {
+  return new ResponseToProcess(HttpURLConnection.HTTP_OK, null);
+}
   }
 
 }
